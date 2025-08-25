@@ -1,0 +1,161 @@
+/* ===== Shop Container ===== */
+.shop-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 100vw;    /* use full viewport width */
+  margin: 0 auto;      /* center horizontally */
+  box-sizing: border-box;
+}
+
+/* ===== Shop Sidebar ===== */
+.shop-sidebar {
+  width: 250px;              /* fixed width */
+  flex-shrink: 0;            /* don't shrink */
+  background: #f5f5f5;       /* light gray background */
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #ccc;  /* flat shadow downward */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 1rem;                 /* stick to top when scrolling */
+  height: fit-content;
+}
+
+/* Sidebar headings */
+.shop-sidebar h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+/* Inputs inside sidebar */
+.shop-sidebar input[type="text"],
+.shop-sidebar input[type="checkbox"] {
+  margin-bottom: 0.5rem;
+}
+
+/* Checkbox labels */
+.shop-sidebar label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #111;
+  cursor: pointer;
+}
+
+/* Filter button */
+.shop-sidebar .btn-filter {
+  background: #3b82f6;       /* blue button */
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.shop-sidebar .btn-filter:hover {
+  background: #2563eb;
+  box-shadow: 0 3px 0 #666;
+}
+
+/* ===== Shop Products Grid ===== */
+.shop-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  flex: 1; /* take remaining space next to sidebar */
+}
+
+/* ===== Shop / Instrument Card ===== */
+.shop-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #888888; /* flat shadow downward */
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.shop-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #666666;
+}
+
+/* Category badge */
+.shop-card .shop-category {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  background-color: #facc15; /* yellow badge */
+  color: #111;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Instrument image */
+.shop-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* keep square */
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Instrument title */
+.shop-card .shop-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #111;
+}
+
+/* Price */
+.shop-card .shop-price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Add to Cart button */
+.shop-card .btn-add {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  text-align: center;
+  border-radius: 12px;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 1500px) {
+  .shop-container {
+    flex-direction: column;
+  }
+
+  .shop-sidebar {
+    width: 100%;
+    position: relative;
+    top: auto;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 1rem 0;
+  }
+
+  .shop-products {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 1500px) {
+  .shop-products {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,38 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+
+<div style="width: 400px;">
+    <h2 style="color: white;">Add Product</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label style="color: white;">Name</label>
+            <input class="input" type="text" name="name" required>
+        </div>
+        </br>
+        <div class="mb-3">
+            <label style="color: white;">Category</label>
+            <!-- Input with datalist -->
+            <input class="input" type="text" name="category" list="categories" required>
+            <datalist id="categories">
+                {% for cat in categories %}
+                    <option value="{{ cat }}"></option>
+                {% endfor %}
+            </datalist>
+        </div>
+        </br>
+        <div class="mb-3">
+            <label style="color: white;">Price</label>
+            <input class="input" type="number" name="price" required>
+        </div>
+        </br>
+        <div class="mb-3">
+            <label style="color: white;">Image URL</label>
+            <input class="input" type="text" name="image" required>
+        </div>
+        </br>
+        <button class="btn btn-primary" type="submit">Add Product</button>
+    </form>
+</div>
+
+{% endblock %}

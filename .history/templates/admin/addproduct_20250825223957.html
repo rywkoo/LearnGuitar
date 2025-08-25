@@ -1,0 +1,200 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+
+
+<style>
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  max-height: 100px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: none;
+  margin-top: 2px;
+  z-index: 10;
+}
+
+.dropdown-list li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background: #f0f0f0;
+}
+
+.dropdown-list li.other {
+  font-style: italic;
+  color: #555;
+}
+</style>
+
+
+<div style="width: 400px; margin: 2rem auto;">
+    <h2 style="color: white; margin-bottom: 1rem;">Add Product</h2>
+
+    <form id="addProductForm" method="POST" enctype="multipart/form-data">
+        <!-- Name -->
+        <div class="mb-3">
+            <label style="color: white;">Name</label>
+            <input class="input" type="text" name="name" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label style="color: white;">Category</label>
+            <div class="custom-dropdown input">
+                <input 
+                    type="text" 
+                    id="categoryInput"
+                    name="category"
+                    placeholder="Select or type a category"
+                    autocomplete="off"
+                    value="{{ product['category'] if product else '' }}"
+                    required
+                    style="
+                        background-color: white; 
+                        color: black; 
+                        border: none; 
+                        outline: none;
+                        box-shadow: none;
+                    "
+                >
+
+                <ul class="dropdown-list" id="categoryList">
+                    {% for cat in categories %}
+                        <li>{{ cat }}</li>
+                    {% endfor %}
+                    <li class="other">Other...</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label style="color: white;">Price</label>
+            <input class="input" type="number" name="price" required>
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+            <label style="color: white;">Image</label>
+            <input type="file" name="image_file" accept="image/*" style="margin-bottom: 0.5rem;">
+            <br>
+            <span style="color: white;">or paste image URL:</span>
+            <input class="input" type="text" name="image_url" placeholder="https://example.com/image.jpg">
+        </div>
+
+        <!-- Submit -->
+    </br>
+        <button class="btn btn-primary" type="submit">Add Product</button>
+    </form>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+">
+    <div style="
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        width: 300px;
+    ">
+        <div style="font-size: 3rem; color: green;">✔️</div>
+        <h3>New Product Added!</h3>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('addProductForm');
+const modal = document.getElementById('successModal');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(form);
+
+    fetch(form.action || window.location.href, {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => {
+        if (res.ok) {
+            // Show modal
+            modal.style.display = 'flex';
+
+            // Redirect to product list after 1.5s
+            setTimeout(() => {
+                window.location.href = "{{ url_for('admin_products') }}";
+            }, 1500);
+        } else {
+            res.text().then(txt => alert('Error adding product: ' + txt));
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Error adding product.');
+    });
+});
+</script>
+
+<script>
+const input = document.getElementById('categoryInput');
+const list = document.getElementById('categoryList');
+
+input.addEventListener('focus', () => {
+  list.style.display = 'block';
+});
+
+input.addEventListener('input', () => {
+  const value = input.value.toLowerCase();
+  Array.from(list.children).forEach(li => {
+    li.style.display = li.textContent.toLowerCase().includes(value) ? 'block' : 'none';
+  });
+});
+
+Array.from(list.children).forEach(li => {
+  li.addEventListener('click', () => {
+    if (li.classList.contains('other')) {
+      input.value = '';
+      input.focus();
+    } else {
+      input.value = li.textContent;
+    }
+    list.style.display = 'none';
+  });
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.custom-dropdown')) {
+    list.style.display = 'none';
+  }
+});
+</script>
+{% endblock %}

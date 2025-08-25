@@ -1,0 +1,67 @@
+/* ===== Global Text Settings ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #111;       /* dark text for readability */
+  line-height: 1.5;
+  background: #fffafc; /* subtle light background */
+}
+
+/* ===== Headings ===== */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #111;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  color: #111;
+}
+
+/* ===== Paragraphs ===== */
+p {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  color: #222;  /* slightly lighter than headings */
+}
+
+/* ===== Labels ===== */
+label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111;
+}
+
+/* ===== Links ===== */
+a {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* ===== Small Text ===== */
+small {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* ===== Button Text ===== */
+.btn {
+  font-family: inherit; /* use same font as body */
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+}

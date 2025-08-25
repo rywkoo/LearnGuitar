@@ -1,0 +1,50 @@
+{% extends "master.html" %}
+
+{% block title %}Shop{% endblock %}
+
+{% block main_content %}
+
+<div class="shop-container" style="padding: 2rem; gap: 2rem;">
+
+  <!-- Sidebar -->
+  <div class="shop-sidebar">
+    <h3>Search</h3>
+    <input class="input" type="text" placeholder="Search instruments...">
+
+    <h3>Category</h3>
+    <label><input type="checkbox" value="acoustic"> Acoustic Guitar</label>
+    <label><input type="checkbox" value="electric"> Electric Guitar</label>
+    <label><input type="checkbox" value="bass"> Bass Guitar</label>
+
+    <h3>Price</h3>
+    <label><input type="checkbox" value="0-200"> $0 - $200</label>
+    <label><input type="checkbox" value="201-500"> $201 - $500</label>
+    <label><input type="checkbox" value="501-1000"> $501 - $1000</label>
+
+    <button class="btn-filter">Apply Filters</button>
+  </div>
+
+  <!-- Product Cards Grid -->
+  <div class="shop-products">
+    {% for product in products %}
+      <div class="shop-card">
+      <div class="shop-category">{{ product['category'] }}</div>
+      <img src="{{ product['image'] }}" alt="{{ product['image'] }}">
+      <div class="shop-title">{{ product['title'] }}</div>
+      <div class="shop-price">${{ product['price'] }}</div>
+      <button 
+        @click='addToCart({{ product|tojson | safe }})' 
+        class="btn btn-primary btn-add">
+        Add to Cart
+      </button>
+
+      </div>
+
+    {% endfor %}
+
+
+  </div>
+
+</div>
+
+{% endblock %}

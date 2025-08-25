@@ -1,0 +1,39 @@
+{% extends "master.html" %}
+
+{% block title %}UI Components{% endblock %}
+
+{% block main_content %}
+<h1 style="margin-bottom: 1rem;">UI Components Showcase</h1>
+
+<!-- Buttons -->
+<div class="card card-pink">
+  <h2>Buttons</h2>
+  <button class="btn btn-primary">Primary</button>
+  <button class="btn btn-secondary">Secondary</button>
+  <button class="btn btn-danger">Danger</button>
+</div>
+
+<!-- Input Fields -->
+<div class="card card-yellow">
+  <h2>Input Fields</h2>
+    <input type="text" class="input" placeholder="Enter your name"><br><br>
+    <input type="email" class="input" placeholder="Enter your email"><br><br>
+    <input type="password" class="input" placeholder="Enter your password">
+</div>
+
+<!-- Cards -->
+<div class="card card-pink">
+  <h2>Pink Card</h2>
+  <p>This is a pink card (primary).</p>
+</div>
+
+<div class="card card-yellow">
+  <h2>Yellow Card</h2>
+  <p>This is a yellow card (secondary).</p>
+</div>
+
+<div class="card card-blue">
+  <h2>Blue Card</h2>
+  <p>This is a blue card (accent).</p>
+</div>
+{% endblock %}

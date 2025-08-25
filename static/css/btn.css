@@ -1,0 +1,37 @@
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;  /* fully rounded */
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+
+  /* Add shadow */
+/* flat shadow downwards */
+}
+
+/* Optional: hover effect (slightly stronger shadow) */
+.btn:hover {
+  box-shadow: 0 3px 0 #45454576;
+}
+
+/* Primary: Yellow bg, black text */
+.btn-primary {
+  background: #facc15;
+  color: #000;
+}
+
+/* Secondary: Blue bg, white text */
+.btn-secondary {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* Danger: Red bg, white text */
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}

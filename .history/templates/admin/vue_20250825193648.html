@@ -1,0 +1,104 @@
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+    const {createApp, ref} = Vue;
+
+    createApp({
+        delimiters: ['[[', ']]'],
+        setup() {
+            const products = ref({{ products|tojson|safe }});
+            const selectedProduct = ref({});
+            const modalTitle = ref('Add Product');
+            const file = ref(null);
+
+            const showAddModal = () => {
+                selectedProduct.value = {};
+                file.value = null;
+                modalTitle.value = "Add Product";
+                $('#productModal').modal('show');
+            };
+
+            const showEditModal = (product) => {
+                selectedProduct.value = {...product};
+                file.value = null;
+                modalTitle.value = "Edit Product";
+                $('#productModal').modal('show');
+            };
+
+            const onFileChange = (event) => {
+                file.value = event.target.files[0];
+            };
+
+            const saveProduct = () => {
+                const formData = new FormData();
+                formData.append('name', selectedProduct.value.name);
+                formData.append('category', selectedProduct.value.category);
+                formData.append('price', selectedProduct.value.price);
+
+                if (file.value) formData.append('image', file.value);
+
+                if (selectedProduct.value.id) formData.append('current_image', selectedProduct.value.image || '');
+
+                const url = selectedProduct.value.id ? '/products/edit/' + selectedProduct.value.id : '/products/add';
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Success', data.message, 'success');
+
+                            if (!selectedProduct.value.id) {
+                                // Add new product to table
+                                products.value.push(data.product);
+                            } else {
+                                // Update edited product in table
+                                const index = products.value.findIndex(p => p.id === selectedProduct.value.id);
+                                if (index !== -1) products.value[index] = {
+                                    ...selectedProduct.value,
+                                    image: data.product.image
+                                };
+                            }
+
+                            $('#productModal').modal('hide'); // close modal
+                            file.value = null;
+                            selectedProduct.value = {};
+                        }
+                    });
+            };
+
+            const deleteProduct = (id) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/products/delete/' + id, {method: 'POST'})
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire('Deleted!', data.message, 'success');
+                                    products.value = products.value.filter(p => p.id !== id);
+                                }
+                            });
+                    }
+                });
+            };
+
+            return {
+                products,
+                selectedProduct,
+                modalTitle,
+                showAddModal,
+                showEditModal,
+                saveProduct,
+                deleteProduct,
+                file,
+                onFileChange
+            };
+        }
+    }).mount('#app_product');
+</script>

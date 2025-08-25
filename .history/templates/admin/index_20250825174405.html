@@ -1,0 +1,135 @@
+{% extends "master.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block main_content %}
+<div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem;">
+
+  <!-- Page Heading -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1>Dashboard</h1>
+    <a href="#" style="
+        padding: 0.5rem 1rem;
+        background: #38a169;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    " onmouseover="this.style.background='#2f855a'" onmouseout="this.style.background='#38a169'">Generate Report</a>
+  </div>
+
+  <!-- Stats Cards -->
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+    <div style="
+        flex: 1 1 220px;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ">
+      <h4>Earnings (Monthly)</h4>
+      <p style="font-weight: bold;">$40,000</p>
+    </div>
+    <div style="
+        flex: 1 1 220px;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ">
+      <h4>Earnings (Annual)</h4>
+      <p style="font-weight: bold;">$215,000</p>
+    </div>
+    <div style="
+        flex: 1 1 220px;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ">
+      <h4>Tasks</h4>
+      <p>50%</p>
+      <div style="background: #eee; border-radius: 6px; height: 10px; overflow: hidden;">
+        <div style="width: 50%; height: 100%; background: #38a169;"></div>
+      </div>
+    </div>
+    <div style="
+        flex: 1 1 220px;
+        background: #fff;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    ">
+      <h4>Pending Requests</h4>
+      <p style="font-weight: bold;">18</p>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+    <div style="
+        flex: 2 1 600px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+    ">
+      <h4>Earnings Overview</h4>
+      <canvas id="myAreaChart" style="width: 100%; height: 300px;"></canvas>
+    </div>
+    <div style="
+        flex: 1 1 300px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+    ">
+      <h4>Revenue Sources</h4>
+      <canvas id="myPieChart" style="width: 100%; height: 300px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Projects & Illustrations -->
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+    <div style="
+        flex: 2 1 600px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+    ">
+      <h4>Projects</h4>
+      <div style="margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+          <span>Server Migration</span><span>20%</span>
+        </div>
+        <div style="background: #eee; border-radius: 6px; height: 10px; overflow: hidden;">
+          <div style="width: 20%; height: 100%; background: #f56565;"></div>
+        </div>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+          <span>Sales Tracking</span><span>40%</span>
+        </div>
+        <div style="background: #eee; border-radius: 6px; height: 10px; overflow: hidden;">
+          <div style="width: 40%; height: 100%; background: #f6ad55;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="
+        flex: 1 1 300px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        text-align: center;
+    ">
+      <h4>Illustrations</h4>
+      <img src="../../static/img/undraw_posting_photo.svg" alt="Illustration" style="max-width: 100%; margin-bottom: 1rem;">
+      <p>Add some quality SVG illustrations from <a href="https://undraw.co/" target="_blank" style="color: #38a169;">unDraw</a>.</p>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

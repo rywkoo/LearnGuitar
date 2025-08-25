@@ -1,0 +1,97 @@
+{% extends "master.html" %}
+
+{% block title %}Shop{% endblock %}
+
+{% block main_content %}
+
+<div class="shop-container" style="padding: 2rem; gap: 2rem;">
+
+  <!-- Sidebar -->
+  <div class="shop-sidebar">
+    <h3>Search</h3>
+    <input class="input" type="text" placeholder="Search instruments...">
+
+    <h3>Category</h3>
+    <label><input type="checkbox" value="acoustic"> Acoustic Guitar</label>
+    <label><input type="checkbox" value="electric"> Electric Guitar</label>
+    <label><input type="checkbox" value="bass"> Bass Guitar</label>
+
+    <h3>Price</h3>
+    <label><input type="checkbox" value="0-200"> $0 - $200</label>
+    <label><input type="checkbox" value="201-500"> $201 - $500</label>
+    <label><input type="checkbox" value="501-1000"> $501 - $1000</label>
+
+  </div>
+
+  <!-- Product Cards Grid -->
+  <div class="shop-products">
+    {% for product in products %}
+      <div class="shop-card">
+      <div class="shop-category">{{ product['category'] }}</div>
+      <img src="{{ product['image'] }}" alt="{{ product['image'] }}">
+      <div class="shop-title">{{ product['title'] }}</div>
+      <div class="shop-price">${{ product['price'] }}</div>
+      <button 
+        @click='addToCart({{ product|tojson | safe }})' 
+        class="btn btn-primary btn-add">
+        Add to Cart
+      </button>
+
+      </div>
+
+    {% endfor %}
+
+
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('.shop-sidebar input[type="text"]');
+    const categoryCheckboxes = document.querySelectorAll('.shop-sidebar input[type="checkbox"][value="acoustic"], .shop-sidebar input[type="checkbox"][value="electric"], .shop-sidebar input[type="checkbox"][value="bass"]');
+    const priceCheckboxes = document.querySelectorAll('.shop-sidebar input[type="checkbox"][value="0-200"], .shop-sidebar input[type="checkbox"][value="201-500"], .shop-sidebar input[type="checkbox"][value="501-1000"]');
+    const cards = document.querySelectorAll('.shop-card');
+
+    function filterProducts() {
+        const search = searchInput.value.toLowerCase();
+
+        const selectedCategories = Array.from(categoryCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        const selectedPrices = Array.from(priceCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+
+        cards.forEach(card => {
+            const title = card.querySelector('.shop-title').textContent.toLowerCase();
+            const category = card.querySelector('.shop-category').textContent.toLowerCase();
+            const price = parseFloat(card.querySelector('.shop-price').textContent.replace('$', ''));
+
+            let matchesSearch = title.includes(search) || category.includes(search);
+            let matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+            let matchesPrice = true;
+
+            if (selectedPrices.length > 0) {
+                matchesPrice = selectedPrices.some(range => {
+                    const [min, max] = range.split('-').map(Number);
+                    return price >= min && price <= max;
+                });
+            }
+
+            // Toggle hidden class instead of setting display
+            if (matchesSearch && matchesCategory && matchesPrice) {
+                card.classList.remove('hidden-card');
+            } else {
+                card.classList.add('hidden-card');
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterProducts);
+    categoryCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+    priceCheckboxes.forEach(cb => cb.addEventListener('change', filterProducts));
+});
+</script>
+{% endblock %}

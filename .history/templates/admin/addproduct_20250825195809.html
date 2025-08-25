@@ -1,0 +1,32 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+
+
+<div  class="container mt-2">
+    <h2 style="color: white;">Add Product</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label style="color: white;">Name</label>
+            <input class="input" style="width: 50%;" type="text" name="name" class="form-control" required>
+        </div>
+    </br>
+        <div class="mb-3">
+            <label style="color: white;" >Category</label>
+            <input class="input" style="width: 50%;" type="text" name="category" class="form-control" required>
+        </div>
+        </br>
+        <div class="mb-3">
+            <label style="color: white;" >Price</label>
+            <input class="input" style="width: 50%;" type="number" name="price" class="form-control" required>
+        </div>
+        </br>
+        <div class="mb-3">
+            <label style="color: white;">Image URL</label>
+            <input class="input" style="width: 50%;" type="text" name="image" class="form-control" required>
+        </div>
+        </br>
+        <button class="btn btn-primary" type="submit">Add Product</button>
+    </form>
+</div>
+{% endblock %}

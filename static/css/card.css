@@ -1,0 +1,55 @@
+/* ===== Base Card Component ===== */
+.card {
+  border-radius: 16px;       /* rounded corners */
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s, transform 0.2s;
+  color: #111;               /* default text color */
+  box-shadow: 0 4px 0 #888888; /* default flat shadow */
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #888888; /* slightly longer shadow on hover */
+}
+
+/* ===== Card Variants ===== */
+
+/* Primary - Pink */
+.card-pink {
+  background: #f6659a;       /* light pink */
+  box-shadow: 0 4px 0 #d35c7f;
+}
+.card-pink:hover {
+  box-shadow: 0 6px 0 #af4d6b;
+}
+
+/* Secondary - Yellow */
+.card-yellow {
+  background: #facc15;       /* yellow */
+  box-shadow: 0 4px 0 #d4a90f;
+}
+.card-yellow:hover {
+  box-shadow: 0 6px 0 #e0b01a;
+}
+
+/* Danger/Accent - Blue */
+.card-blue {
+  background: #3b82f6;       /* blue */
+  color: #fff;               /* white text for contrast */
+  box-shadow: 0 4px 0 #2563eb;
+}
+.card-blue:hover {
+  box-shadow: 0 6px 0 #1d4ed8;
+}
+
+/* Card header */
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Card paragraph/text */
+.card p {
+  font-size: 1rem;
+}

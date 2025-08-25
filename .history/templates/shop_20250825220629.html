@@ -1,0 +1,101 @@
+{% extends "master.html" %}
+
+{% block title %}Shop{% endblock %}
+
+{% block main_content %}
+
+<div class="shop-container" style="padding: 2rem; gap: 2rem;">
+
+  <!-- Sidebar -->
+  <div class="shop-sidebar">
+    <h3>Search</h3>
+    <input id="searchInput" class="input" type="text" placeholder="Search instruments...">
+
+    <h3>Category</h3>
+    <label><input type="checkbox" class="category-filter" value="acoustic"> Acoustic Guitar</label>
+    <label><input type="checkbox" class="category-filter" value="electric"> Electric Guitar</label>
+    <label><input type="checkbox" class="category-filter" value="bass"> Bass Guitar</label>
+
+    <h3>Price</h3>
+    <label><input type="checkbox" class="price-filter" value="0-200"> $0 - $200</label>
+    <label><input type="checkbox" class="price-filter" value="201-500"> $201 - $500</label>
+    <label><input type="checkbox" class="price-filter" value="501-1000"> $501 - $1000</label>
+
+    <button id="applyFilters" class="btn-filter">Apply Filters</button>
+  </div>
+
+  <!-- Product Cards Grid -->
+  <div class="shop-products">
+    {% for product in products %}
+      <div class="shop-card" 
+           data-title="{{ product['title']|lower }}" 
+           data-category="{{ product['category']|lower }}" 
+           data-price="{{ product['price'] }}">
+        <div class="shop-category">{{ product['category'] }}</div>
+        <img src="{{ product['image'] }}" alt="{{ product['image'] }}">
+        <div class="shop-title">{{ product['title'] }}</div>
+        <div class="shop-price">${{ product['price'] }}</div>
+        <button 
+          @click='addToCart({{ product|tojson | safe }})' 
+          class="btn btn-primary btn-add">
+          Add to Cart
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+const searchInput = document.getElementById('searchInput');
+const categoryCheckboxes = document.querySelectorAll('.category-filter');
+const priceCheckboxes = document.querySelectorAll('.price-filter');
+const applyButton = document.getElementById('applyFilters');
+const productCards = document.querySelectorAll('.shop-card');
+
+function applyFilters() {
+    const searchText = searchInput.value.toLowerCase();
+
+    const selectedCategories = Array.from(categoryCheckboxes)
+                                   .filter(cb => cb.checked)
+                                   .map(cb => cb.value.toLowerCase());
+
+    const selectedPrices = Array.from(priceCheckboxes)
+                                .filter(cb => cb.checked)
+                                .map(cb => cb.value);
+
+    productCards.forEach(card => {
+        const title = card.dataset.title;
+        const category = card.dataset.category;
+        const price = parseFloat(card.dataset.price);
+
+        // Search filter
+        const matchesSearch = title.includes(searchText);
+
+        // Category filter
+        const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+
+        // Price filter
+        let matchesPrice = selectedPrices.length === 0;
+        if (!matchesPrice) {
+            for (const range of selectedPrices) {
+                const [min, max] = range.split('-').map(Number);
+                if (price >= min && price <= max) {
+                    matchesPrice = true;
+                    break;
+                }
+            }
+        }
+
+        card.style.display = (matchesSearch && matchesCategory && matchesPrice) ? '' : 'none';
+    });
+}
+
+// Apply filters when clicking the button
+applyButton.addEventListener('click', applyFilters);
+
+// Optional: live search while typing
+searchInput.addEventListener('input', applyFilters);
+</script>
+
+{% endblock %}

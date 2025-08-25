@@ -1,0 +1,38 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  // ===== Background Slider =====
+  (function() {
+    const bgSlider = document.querySelector('.hero-left .hero-bg-slider');
+    if (!bgSlider) return; // Exit if element doesn't exist
+
+    const images = [
+      'https://www.uk-anime.net/images/bocchimain.png',
+      'https://www.cnet.com/a/img/resize/3b4b3e192a9d75bd060ba4debe8d13a14caef990/hub/2024/07/06/b6981ace-771d-4971-8a9e-60e8c83bc66e/bocchi-the-rock-photo-1.jpg?auto=webp&fit=crop&height=900&width=1200',
+      'https://www.uk-anime.net/images/bocchimain.png',
+      'https://www.cnet.com/a/img/resize/3b4b3e192a9d75bd060ba4debe8d13a14caef990/hub/2024/07/06/b6981ace-771d-4971-8a9e-60e8c83bc66e/bocchi-the-rock-photo-1.jpg?auto=webp&fit=crop&height=900&width=1200'
+    ];
+
+    let current = 0;
+
+    function changeBackground() {
+      bgSlider.style.backgroundImage = `url(${images[current]})`;
+      current = (current + 1) % images.length;
+    }
+
+    changeBackground();
+    setInterval(changeBackground, 5000);
+  })();
+</script>
+
+<script>
+  // ===== Quantity Adjust =====
+  function adjustQty(delta) {
+    const input = document.getElementById('quantityInput');
+    if (!input) return; // Exit if element doesn't exist
+
+    let value = parseInt(input.value);
+    if (!isNaN(value)) {
+      input.value = Math.max(1, value + delta);
+    }
+  }
+</script>

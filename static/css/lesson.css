@@ -1,0 +1,49 @@
+/* ===== Lesson Cards ===== */
+.lesson-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #888888; /* flat shadow downward */
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lesson-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 0 #666666;
+}
+
+/* Lesson image on the left */
+.lesson-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Title in the middle */
+.lesson-title {
+  flex: 1;
+  font-size: 1.2rem;
+  color: #111;
+}
+
+/* Button on the right */
+.lesson-action .btn {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+}
+
+/* Optional: responsive for small screens */
+@media (max-width: 600px) {
+  .lesson-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .lesson-action {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}

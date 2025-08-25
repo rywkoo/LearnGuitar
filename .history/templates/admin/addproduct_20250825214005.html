@@ -1,0 +1,52 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+
+<div style="width: 400px;">
+    <h2 style="color: white;">Add Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label style="color: white;">Name</label>
+                <input class="input" type="text" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label style="color: white;">Category</label>
+                <input class="input" type="text" name="category" list="categories" required>
+                <datalist id="categories">
+                    {% for cat in categories %}
+                        <option value="{{ cat }}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+            <div class="mb-3">
+                <label style="color: white;">Price</label>
+                <input class="input" type="number" name="price" required>
+            </div>
+        </br>
+            <div class="mb-3">
+                <label style="color: white;">Image</label>
+                <input type="file" name="image_file" accept="image/*"></br></br>
+                <span style="color: white;">or paste image URL:</span>
+                <input class="input" type="text" name="image_url" placeholder="https://example.com/image.jpg">
+            </div>
+        </br>
+            <button class="btn btn-primary" type="submit">Add Product</button>
+        </form>
+
+</div>
+
+<script>
+function toggleOtherCategory() {
+    const select = document.getElementById('categorySelect');
+    const otherInput = document.getElementById('categoryOther');
+    if (select.value === '__other__') {
+        otherInput.style.display = 'block';
+    } else {
+        otherInput.style.display = 'none';
+        otherInput.value = '';
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}My Flask App{% endblock %}</title>
+  {% include "css.html" %}
+</head>
+<body style="margin:0; font-family: sans-serif;">
+
+  <!-- ===== Navbar ===== -->
+  <nav style="padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; background: #f6659a; color:white;">
+    <a href="/" class="btn btn-secondary btn-lg" style="transform: rotate(-2deg);">Learn Guitar</a>
+    <div class="nav-links" style="display: flex; gap:5px;">
+      <a href="/logout" style="padding: 0.5rem 1rem; background: #e53e3e; color:white; border-radius: 6px; text-decoration:none;">Logout</a>
+    </div>
+  </nav>
+
+  <!-- ===== Layout Wrapper ===== -->
+  <div style="display: flex; min-height: calc(100vh - 70px);">
+
+    <!-- ===== Sidebar ===== -->
+    <aside style="
+      width: 220px; 
+      background: #f2f2f2; 
+      padding: 2rem 1rem; 
+      border-right: 1px solid #ddd;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.05);
+    ">
+      <nav style="display: flex; flex-direction: column; gap: 1rem;">
+        <a class="btn btn-danger" href="/admin" style="padding: 0.5rem 1rem; border-radius: 6px; background:#f6659a; color:white; text-decoration:none;">Dashboard</a>
+        <a class="btn btn-danger" href="/admin/products" style="padding: 0.5rem 1rem; border-radius: 6px; background:#f6659a; color:white; text-decoration:none;">Products</a>
+        <a class="btn btn-danger" href="/admin/orders" style="padding: 0.5rem 1rem; border-radius: 6px; background:#f6659a; color:white; text-decoration:none;">Orders</a>
+        <a class="btn btn-danger" href="/admin/customers" style="padding: 0.5rem 1rem; border-radius: 6px; background:#f6659a; color:white; text-decoration:none;">Customers</a>
+      </nav>
+    </aside>
+
+    <!-- ===== Main Content ===== -->
+    <main style="flex: 1; padding: 2rem;">
+      {% block main_content %}
+      <!-- Page content will go here -->
+      {% endblock %}
+    </main>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer style="text-align: center; padding: 1rem 1rem; background: #f6659a; color:white; border-top: 1px solid #f6659a;">
+    <p>&copy; 2025 My Guitar Learning Website. All rights reserved.</p>
+  </footer>
+
+  {% include "script.html" %}
+  
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</body>
+</html>

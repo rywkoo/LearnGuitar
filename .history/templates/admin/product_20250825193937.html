@@ -1,0 +1,164 @@
+{% extends "admin/admin_master.html" %}
+
+{% block title %}Admin Products{% endblock %}
+
+{% block main_content %}
+<div id="add_product">
+<div style="max-width: 900px; margin: 2rem auto; padding: 0 1rem;">
+
+  <!-- Page Header -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2>All Products</h2>
+    <a @click="showAddModal" class="btn btn-secondary">
+      + Add Product
+    </a>
+  </div>
+
+  <!-- Product List -->
+  {% for p in products %}
+  <div style="
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  ">
+    <!-- Image -->
+    <div style="flex: 0 0 120px; text-align: center;">
+      <img src="{{ p['image'] }}" alt="{{ p['name'] }}" style="max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 8px;">
+    </div>
+
+    <!-- Product Details -->
+    <div style="flex: 1 1 300px;">
+      <h4 style="margin: 0 0 0.5rem 0;">{{ p['name'] }}</h4>
+      <small style="color: #555;">{{ p['category'] }}</small>
+      <p style="font-size: 0.9rem; color: #666; margin:0.5rem 0;">{{ p['description'] or 'No description' }}</p>
+      <strong style="color: #111;">${{ p['price'] }}</strong>
+    </div>
+
+    <!-- Actions -->
+    <div style="flex: 0 0 150px; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+      <a href="{{ url_for('edit_product', id=p['id']) }}" class="btn btn-primary">
+        Edit
+      </a>
+      <form action="{{ url_for('delete_product', id=p['id']) }}" method="post">
+        <button class="btn btn-danger">Delete</button>
+      </form>
+
+    </div>
+  </div>
+  
+  {% endfor %}
+
+</div>
+</div>
+
+<script>
+    const {createApp, ref} = Vue;
+
+    createApp({
+        delimiters: ['[[', ']]'],
+        setup() {
+            const products = ref({{ products|default([])|tojson|safe }});
+
+            const selectedProduct = ref({});
+            const modalTitle = ref('Add Product');
+            const file = ref(null);
+
+            const showAddModal = () => {
+                selectedProduct.value = {};
+                file.value = null;
+                modalTitle.value = "Add Product";
+                $('#productModal').modal('show');
+            };
+
+            const showEditModal = (product) => {
+                selectedProduct.value = {...product};
+                file.value = null;
+                modalTitle.value = "Edit Product";
+                $('#productModal').modal('show');
+            };
+
+            const onFileChange = (event) => {
+                file.value = event.target.files[0];
+            };
+
+            const saveProduct = () => {
+                const formData = new FormData();
+                formData.append('name', selectedProduct.value.name);
+                formData.append('category', selectedProduct.value.category);
+                formData.append('price', selectedProduct.value.price);
+
+                if (file.value) formData.append('image', file.value);
+
+                if (selectedProduct.value.id) formData.append('current_image', selectedProduct.value.image || '');
+
+                const url = selectedProduct.value.id ? '/products/edit/' + selectedProduct.value.id : '/products/add';
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Success', data.message, 'success');
+
+                            if (!selectedProduct.value.id) {
+                                // Add new product to table
+                                products.value.push(data.product);
+                            } else {
+                                // Update edited product in table
+                                const index = products.value.findIndex(p => p.id === selectedProduct.value.id);
+                                if (index !== -1) products.value[index] = {
+                                    ...selectedProduct.value,
+                                    image: data.product.image
+                                };
+                            }
+
+                            $('#productModal').modal('hide'); // close modal
+                            file.value = null;
+                            selectedProduct.value = {};
+                        }
+                    });
+            };
+
+            const deleteProduct = (id) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch('/products/delete/' + id, {method: 'POST'})
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    Swal.fire('Deleted!', data.message, 'success');
+                                    products.value = products.value.filter(p => p.id !== id);
+                                }
+                            });
+                    }
+                });
+            };
+
+            return {
+                products,
+                selectedProduct,
+                modalTitle,
+                showAddModal,
+                showEditModal,
+                saveProduct,
+                deleteProduct,
+                file,
+                onFileChange
+            };
+        }
+    }).mount('#app_product');
+</script>
+{% endblock %}

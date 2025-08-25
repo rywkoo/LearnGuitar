@@ -1,0 +1,100 @@
+{% extends "master.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block main_content %}
+<div id="app" style="max-width: 900px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+
+  <h2 style="text-align: center; margin-bottom: 2rem;">Checkout</h2>
+
+  <form @submit.prevent="submitOrder" style="display: flex; flex-wrap: wrap; gap: 2rem;">
+
+    <!-- Left: Cart Items -->
+    <div style="flex: 1 1 45%; background: #f9f9f9; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+      <h3 style="margin-bottom: 1rem;">Your Items</h3>
+
+      <div v-for="item in cart_list" :key="item.id" style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem 1rem;
+          margin-bottom: 1rem;
+          border-radius: 8px;
+          background: white;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      ">
+        <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+          [[ item.title ]] x [[ item.quantity ]]
+        </div>
+        <div style="font-weight: bold;">$[[ (item.price * item.quantity).toFixed(2) ]]</div>
+      </div>
+
+      <div style="text-align: right; margin-top: 1rem; font-weight: bold;">
+        Total: $[[ total ]]
+      </div>
+    </div>
+
+    <!-- Right: User Info -->
+    <div style="flex: 1 1 45%; background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+      <h3 style="margin-bottom: 1rem;">Your Information</h3>
+
+      <label for="name" style="margin-bottom: 0.25rem; display: block;">Name *</label>
+      <input type="text" id="name" v-model="name" placeholder="Your full name" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+      " required>
+
+      <label for="phone" style="margin-bottom: 0.25rem; display: block;">Phone *</label>
+      <input type="tel" id="phone" v-model="phone" placeholder="Your phone number" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+      " required>
+
+      <label for="email" style="margin-bottom: 0.25rem; display: block;">Email *</label>
+      <input type="email" id="email" v-model="email" placeholder="you@example.com" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+      " required>
+
+      <label for="address" style="margin-bottom: 0.25rem; display: block;">Address *</label>
+      <textarea id="address" v-model="address" rows="3" placeholder="Your shipping address" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+      " required></textarea>
+
+      <button type="submit" :disabled="cart_list.length === 0 || !name || !phone || !email || !address" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          background: #38a169;
+          color: white;
+          font-size: 1rem;
+          font-weight: bold;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.3s;
+      " onmouseover="this.style.background='#2f855a'" onmouseout="this.style.background='#38a169'">
+        Submit Order
+      </button>
+    </div>
+
+  </form>
+
+</div>
+{% endblock %}

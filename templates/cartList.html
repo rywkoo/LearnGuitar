@@ -1,0 +1,80 @@
+{% extends "master.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block main_content %}
+<div id="app" style="max-width: 900px; margin: 2rem auto; padding: 0 1rem;">
+
+  <!-- Error Message -->
+  {% if error %}
+    <div style="padding: 1rem; background: #f56565; color: white; text-align: center; border-radius: 8px; margin-bottom: 2rem;">
+      {{ error }}
+    </div>
+  {% endif %}
+
+  <h2 style="text-align: center; margin-bottom: 2rem;">Your Cart</h2>
+
+  <!-- Cart Items -->
+  <div v-for="(item, index) in cart_list" :key="item.id" style="
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  ">
+    
+    <!-- Image -->
+    <div style="flex: 0 0 120px; text-align: center;">
+      <img :src="item.image" :alt="item.title" style="max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 8px;">
+    </div>
+
+    <!-- Details -->
+    <div style="flex: 1 1 300px;">
+      <h4 style="margin: 0 0 0.5rem 0;">[[ item.title ]]</h4>
+      <small style="color: #555;">[[ item.category ]]</small>
+      <p style="font-size: 0.9rem; color: #666;">[[ item.description ]]</p>
+      <strong style="color: #111;">$[[ item.price ]]</strong>
+    </div>
+
+    <!-- Quantity & Remove -->
+    <div style="flex: 0 0 150px; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+      <input type="number" min="1" v-model.number="item.quantity" @change="saveCart" 
+             style="width: 60px; padding: 0.3rem; border-radius: 6px; border: 1px solid #ccc; text-align: center;">
+      <button @click="removeCartItem(index)" style="
+          padding: 0.5rem 1rem;
+          background: #f56565;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: 0.3s;
+      " onmouseover="this.style.background='#e53e3e'" onmouseout="this.style.background='#f56565'">
+        Remove
+      </button>
+    </div>
+  </div>
+
+  <!-- Cart Footer -->
+  <div style="text-align: right; margin-top: 2rem;">
+    <h3>Total: <span style="color: #38a169; font-weight: bold;">$[[ total ]]</span></h3>
+    <a href="/checkout" style="
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 2rem;
+        background: #38a169;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: 0.3s;
+    " onmouseover="this.style.background='#2f855a'" onmouseout="this.style.background='#38a169'">
+      Proceed to Checkout
+    </a>
+  </div>
+
+</div>
+{% endblock %}

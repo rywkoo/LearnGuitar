@@ -1,0 +1,20 @@
+/* ===== Input Fields ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* ensures padding is included in width */
+}
+
+
+.input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 2px solid #bababa;   /* gray border matching shadow */
+  border-radius: 9999px;       /* fully rounded, like buttons */
+  background: #ffffff;         /* very light pink background */
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  color: #111;                 /* dark text */
+}
+

@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+
+{% block title %}Lessons{% endblock %}
+
+{% block main_content %}
+
+<section class="lessons" style="padding: 4rem 2rem; max-width: 1200px; margin: auto; display: flex; flex-direction: column; gap: .5rem;">
+
+  <!-- Example Lesson Card -->
+  <div class="lesson-card card">
+    <div class="lesson-image">
+      <img src="https://www.uk-anime.net/images/bocchimain.png" alt="Lesson Image">
+    </div>
+    <div class="lesson-title">
+      <h3>Lesson 1: Basic Chords</h3>
+    </div>
+    <div class="lesson-action">
+      <button class="btn btn-primary">Read Now</button>
+    </div>
+  </div>
+
+  <div class="lesson-card card">
+    <div class="lesson-image">
+      <img src="https://www.uk-anime.net/images/bocchimain.png" alt="Lesson Image">
+    </div>
+    <div class="lesson-title">
+      <h3>Lesson 2: Strumming Patterns</h3>
+    </div>
+    <div class="lesson-action">
+      <button class="btn btn-primary">Read Now</button>
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

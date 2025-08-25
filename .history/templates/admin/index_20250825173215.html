@@ -1,0 +1,76 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+<div class="dashboard-container">
+
+    <!-- Page Heading -->
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <a href="#" class="btn btn-primary">Generate Report</a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="dashboard-cards">
+        <div class="card card-primary">
+            <h4>Earnings (Monthly)</h4>
+            <p>$40,000</p>
+        </div>
+        <div class="card card-success">
+            <h4>Earnings (Annual)</h4>
+            <p>$215,000</p>
+        </div>
+        <div class="card card-info">
+            <h4>Tasks</h4>
+            <p>50%</p>
+            <div class="progress">
+                <div class="progress-bar" style="width: 50%"></div>
+            </div>
+        </div>
+        <div class="card card-warning">
+            <h4>Pending Requests</h4>
+            <p>18</p>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="dashboard-charts">
+        <div class="chart-area card">
+            <h4>Earnings Overview</h4>
+            <canvas id="myAreaChart"></canvas>
+        </div>
+        <div class="chart-pie card">
+            <h4>Revenue Sources</h4>
+            <canvas id="myPieChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Projects & Colors -->
+    <div class="dashboard-bottom">
+        <div class="projects card">
+            <h4>Projects</h4>
+            <div class="project-item">
+                <span>Server Migration</span>
+                <span>20%</span>
+                <div class="progress">
+                    <div class="progress-bar bg-danger" style="width: 20%"></div>
+                </div>
+            </div>
+            <div class="project-item">
+                <span>Sales Tracking</span>
+                <span>40%</span>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 40%"></div>
+                </div>
+            </div>
+            <!-- Add more projects as needed -->
+        </div>
+
+        <div class="illustrations card">
+            <h4>Illustrations</h4>
+            <img src="../../static/img/undraw_posting_photo.svg" alt="Illustration" class="illustration-img">
+            <p>Add some quality SVG illustrations from <a href="https://undraw.co/" target="_blank">unDraw</a>.</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

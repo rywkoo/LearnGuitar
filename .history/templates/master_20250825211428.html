@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}My Flask App{% endblock %}</title>
+  {% include "css.html" %}
+</head>
+<body>
+<div id="app">
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" style="padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; background: #f6659a;">
+    <div class="btn btn-primary btn-lg">Learn Guitar</div>
+    <div class="nav-links" style="display: flex; gap:5px;">
+      <a class="btn btn-primary" href="{{ url_for('home') }}">Home</a>
+      <a class="btn btn-secondary" href="{{ url_for('lesson') }}">Lesson</a>
+      <a class="btn btn-secondary" href="{{ url_for('shop') }}">Shop</a>
+      <!-- <a class="btn btn-secondary" href="{{ url_for('about') }}">About</a> -->
+      <!-- <a class="btn btn-danger" href="{{ url_for('components') }}">Components</a> -->
+      <a href="/cart" class="btn btn-danger" type="button">
+        Cart ([[ cart_list.length ]])
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== Main Content ===== -->
+  <main style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
+    {% block main_content %}
+    <!-- Page content will go here -->
+    {% endblock %}
+  </main>
+</div>
+  <footer style="text-align: center; padding: 1rem 1rem; background: #f6659a; border-top: 1px solid #f6659a;">
+  <p>&copy; 2025 My Guitar Learning Website. All rights reserved.</p>
+</footer>
+
+
+
+{% include "script.html" %}
+{% include "vue.html" %}
+</body>
+</html>

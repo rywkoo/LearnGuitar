@@ -1,0 +1,101 @@
+{% extends "admin/admin_master.html" %}
+
+{% block main_content %}
+
+<div style="width: 400px;">
+    <h2 style="color: white;">Add Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label style="color: white;">Name</label>
+                <input class="input" type="text" name="name" required>
+            </div>
+
+            <div class="mb-3">
+                <label style="color: white;">Category</label>
+                <input class="input" type="text" name="category" list="categories" required>
+                <datalist id="categories">
+                    {% for cat in categories %}
+                        <option value="{{ cat }}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+
+            <div class="mb-3">
+                <label style="color: white;">Price</label>
+                <input class="input" type="number" name="price" required>
+            </div>
+        </br>
+            <div class="mb-3">
+                <label style="color: white;">Image</label>
+                <input type="file" name="image_file" accept="image/*"></br></br>
+                <span style="color: white;">or paste image URL:</span>
+                <input class="input" type="text" name="image_url" placeholder="https://example.com/image.jpg">
+            </div>
+        </br>
+            <button class="btn btn-primary" type="submit">Add Product</button>
+        </form>
+
+</div>
+
+
+<div id="successModal" style="
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+">
+    <div style="
+        background: #fff;
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        width: 300px;
+    ">
+        <div style="font-size: 3rem; color: green;">✔️</div>
+        <h3>New Product Added!</h3>
+    </div>
+</div>
+
+<script>
+function toggleOtherCategory() {
+    const select = document.getElementById('categorySelect');
+    const otherInput = document.getElementById('categoryOther');
+    if (select.value === '__other__') {
+        otherInput.style.display = 'block';
+    } else {
+        otherInput.style.display = 'none';
+        otherInput.value = '';
+    }
+}
+</script>
+
+<script>
+    const form = document.getElementById('addProductForm');
+    const modal = document.getElementById('successModal');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent normal form submission
+
+        fetch(form.action || window.location.href, {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then(res => {
+            if (res.ok) {
+                modal.style.display = 'flex';
+                // Redirect to /admin/products after 1.5s
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('admin_products') }}";
+                }, 1500);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Error adding product.');
+        });
+    });
+</script>
+{% endblock %}

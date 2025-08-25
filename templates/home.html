@@ -1,0 +1,146 @@
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main_content %}
+
+<!-- ===== Hero Section ===== -->
+<section class="hero" style="
+    display: flex;
+    width: 100vw;
+    min-height: 400px;
+    position: relative;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    overflow: hidden;
+">
+  <div style="
+      position: absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: linear-gradient(135deg, rgba(255, 109, 174, 0.4), rgba(255, 234, 117, 0.73));
+      z-index: 1;
+  "></div>
+  <!-- Left: Text + Background Slider -->
+  <div class="hero-left" style="
+      position: relative;
+      z-index: 2;
+      padding: 4rem 2rem;
+      flex-shrink: 0;
+      max-width: 600px;
+      color: #111;
+  ">
+<!-- Background slider -->
+<div class="hero-bg-slider" style="
+    position: absolute;
+    top:0; left:0;
+    width: 125%; height: 100%;
+    z-index:0;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+"></div>
+
+<!-- Dark overlay -->
+<div style="
+    position:absolute;
+    top:0; left:0;
+    width:125%; height:100%;
+    background: rgba(0,0,0,0.4); /* adjust opacity for darkness */
+    z-index:1;
+"></div>
+
+    <!-- Text over background -->
+    <div style="position: relative; z-index: 1; left: 70px; transform: rotate(-2deg);" class="card card-blue">
+      <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color:#facc15;">Learn Guitar Easily</h1>
+      <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+        Master guitar skills with step-by-step lessons, interactive exercises, and downloadable PDF lessons.
+      </p>
+      <button class="btn btn-primary btn-lg">Get Started</button>
+    </div>
+  </div>
+  <!-- Right: Static Guitar Image -->
+  <div class="hero-image" style="flex:1; min-width:300px; text-align:center; position: relative;">
+    <!-- Decorative background behind image -->
+    <div style="
+        position: absolute;
+        top: 30px;
+        left: 230px;
+        width: 60%;
+        height: 80%;
+        background: rgba(255, 255, 255, 0.274);
+        border-radius: 20px;
+        z-index: 0;
+        transform: rotate(2deg);
+    "></div>
+
+    <!-- Guitar Image -->
+    <img src="https://www.cnet.com/a/img/resize/3b4b3e192a9d75bd060ba4debe8d13a14caef990/hub/2024/07/06/b6981ace-771d-4971-8a9e-60e8c83bc66e/bocchi-the-rock-photo-1.jpg?auto=webp&fit=crop&height=900&width=1200" 
+         alt="Guitar Hero" 
+         style="
+            top: 20px;
+            left: 40px;
+            max-width: 50%; 
+            border-radius: 16px; 
+            position: relative; 
+            z-index: 1;
+            transform: rotate(-2deg);
+         ">
+  </div>
+
+</section>
+
+
+<!-- ===== Features / What You Will Learn ===== -->
+<section class="features" style="
+    width: 100vw;
+    height: 400px;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background: #deb822; /* yellow background */
+    padding: 2rem rem;
+    border-radius: 16px;
+">
+  <h2 style="text-align: center; font-size: 1.5rem; padding-bottom: 1rem; color: #111; padding-top: 1rem; background-color: #facc15;">What You Will Learn</h2>
+  <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+    <div class="card card-pink" style="flex: 1; min-width: 250px; max-width: 300px; transform: translateY(100px); transition: transform 0.3s;">
+      <h3>Basic Chords</h3>
+      <p>Learn all the essential chords to play your first songs.</p>
+    </div>
+    <div class="card card-yellow" style="flex: 1; min-width: 250px; max-width: 300px; transform: translateY(50px); transition: transform 0.3s;">
+      <h3>Strumming Patterns</h3>
+      <p>Master different strumming patterns to sound more professional.</p>
+    </div>
+    <div class="card card-blue" style="flex: 1; min-width: 250px; max-width: 300px; transform: translateY(0px); transition: transform 0.3s;">
+      <h3>Music Theory</h3>
+      <p>Understand scales, keys, and chord progressions for better composition.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== Login / CTA Section ===== -->
+<section class="features" style="
+    width: 100vw;
+    height: 400px;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    background: #cd4778; /* yellow background */
+    padding: 2rem rem;
+    border-radius: 16px;
+">
+  <h2 style="text-align: center; font-size: 1.5rem; padding-bottom: 1rem; color: #ffffff; padding-top: 1rem; background-color: #f6659a;">Get on NOW!!</h2>
+  <div style="max-width: 400px; width: 100%; padding: 2rem; position: relative; margin: auto;">
+    <form  >
+      <label style="color: white;"for="username">Username</label>
+      <input type="text" id="username" class="input" placeholder="Enter username">
+
+      <label style="color: white;"for="password">Password</label>
+      <input type="password" id="password" class="input" placeholder="Enter password">
+
+      <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Login</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
